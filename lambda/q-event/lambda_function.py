@@ -12,19 +12,60 @@ logger.setLevel(logging.INFO)
 
 
 # Initialize AWS clients
-aws_auth = AWSSigV4('q', 'us-east-1')
+aws_auth = AWSSigV4('q',region='us-east-1')
 trans_client = boto3.client('translate')
 sm_client = boto3.client('secretsmanager')
 ddb_client = boto3.client('dynamodb')
 bedrock_runtime = boto3.client(service_name='bedrock-runtime')
 
-def get_secret(secret_name):
-    """Retrieve a secret from AWS Secrets Manager."""
+def get_app_credentials():
+    """Retrieve app credentials from DynamoDB and Secrets Manager."""
     try:
-        response = sm_client.get_secret_value(SecretId=secret_name)
+        # Get the configuration from DynamoDB
+        ddb_response = ddb_client.get_item(
+            TableName=os.environ['CFG_TABLE'],
+            Key={'key': {'S': os.environ['CFG_KEY']}}
+        )
+        
+        if 'Item' not in ddb_response:
+            raise ValueError(f"Configuration not found in DynamoDB for key: {os.environ['CFG_KEY']}")
+        
+        item = ddb_response['Item']
+
+        # Log the entire item
+        logger.info(f"DynamoDB item: {json.dumps(item, default=str)}")
+
+        # Get the secrets arn from Dynamodb
+        app_id_arn = item.get('app_id_arn', {}).get('S', '')
+        app_secret_arn = item.get('app_secret_arn', {}).get('S', '')
+        
+        # Print the ARNs (for debugging)
+        # logger.info(f"DynamoDB table name:{os.environ['CFG_TABLE']}")
+        # logger.info(f"DynamoDB key:{os.environ['CFG_KEY']}")
+        # logger.info(f"app_id_arn: {app_id_arn}")
+        # logger.info(f"app_secret_arn: {app_secret_arn}")
+
+        if not app_id_arn or not app_secret_arn:
+            raise ValueError("APP_ID_ARN or APP_SECRET_ARN not found in DynamoDB")
+        
+        app_id = get_secret(app_id_arn)
+        app_secret = get_secret(app_secret_arn)
+        
+        if not app_id or not app_secret:
+            raise ValueError("App credentials not retrieved from Secrets Manager")
+        
+        return app_id, app_secret
+    except ClientError as e:
+        logger.error(f"Error retrieving app credentials: {e}")
+        raise
+
+def get_secret(secret_arn):
+    """Retrieve a secret value from AWS Secrets Manager."""
+    try:
+        response = sm_client.get_secret_value(SecretId=secret_arn)
         return response['SecretString']
     except ClientError as e:
-        logger.error(f"Error retrieving secret {secret_name}: {e}")
+        logger.error(f"Error retrieving secret: {e}")
         raise
 
 def translate_text(text, target_language='en'):
@@ -72,8 +113,7 @@ def send_message_to_feishu(message_id, content):
     """Send a message back to Feishu."""
     try:
         token_url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
-        app_id = get_secret(os.environ['APP_ID_SECRET_ARN'])
-        app_secret = get_secret(os.environ['APP_SECRET_ARN'])
+        app_id, app_secret = get_app_credentials()
 
         payload = {
             "app_id": app_id,
