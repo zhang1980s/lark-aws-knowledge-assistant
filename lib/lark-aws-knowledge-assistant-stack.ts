@@ -234,18 +234,6 @@ export class LarkAwsKnowledgeAssistantStack extends cdk.Stack {
 
     qContentQ.grantSendMessages(msgEventAlias)
 
-    ///////////////////////////////////////////////////////////////////////
-    // Define the log Bucket 
-    ///////////////////////////////////////////////////////////////////////
-
-
-    // const stackArnSuffix = cdk.Stack.of(this).stackId
-    const qLogBucket = new s3.Bucket(this, 'qLogBucket', {
-      // bucketName: qLogBucketName.valueAsString + "-" + stackArnSuffix.toString,
-      versioned: false,
-      removalPolicy: cdk.RemovalPolicy.RETAIN
-    })
-
 
     ///////////////////////////////////////////////////////////////////////
     // Define qEvent lambda functions with alias and version
@@ -260,8 +248,7 @@ export class LarkAwsKnowledgeAssistantStack extends cdk.Stack {
       timeout: cdk.Duration.seconds(20),
       environment: {
         CFG_TABLE: botConfigTable.tableName,
-        CFG_KEY: configKey.valueAsString,
-        LOG_BUCKET: qLogBucket.bucketName
+        CFG_KEY: configKey.valueAsString
        }
     } );
 
@@ -284,9 +271,6 @@ export class LarkAwsKnowledgeAssistantStack extends cdk.Stack {
     // Grant RO access of AppID and AppSecret to qEventFunction
     AppIDSecret.grantRead(qEventAlias)
     AppSecretSecret.grantRead(qEventAlias)
-    
-    // Grant RW access to qLogBucket
-    qLogBucket.grantReadWrite(qEventAlias)
 
 
     // Create an IAM policy for full AWS Translate access
