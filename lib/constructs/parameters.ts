@@ -9,6 +9,7 @@ export class CfnParameters {
   public readonly userWhitelist: cdk.CfnParameter;
   public readonly supportRegion: cdk.CfnParameter;
   public readonly refreshInterval: cdk.CfnParameter;
+  public readonly botEndpoint: cdk.CfnParameter;
 
   constructor(scope: Construct) {
     this.appID = new cdk.CfnParameter(scope, 'AppID', {
@@ -61,6 +62,14 @@ export class CfnParameters {
       description: 'Case refresh interval (in minutes)',
       noEcho: false,
       default: 10
+    });
+
+    this.botEndpoint = new cdk.CfnParameter(scope, 'LarkEndpoint', {
+      type: 'String',
+      description: 'Lark endpoint',
+      noEcho: false,
+      allowedValues: ['lark', 'feishu'],
+      default: 'lark'
     });
   }
 }
