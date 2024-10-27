@@ -9,6 +9,7 @@ export class ApiGateway {
     const msgEventApi = new apigateway.LambdaRestApi(scope, 'msgEventapi', {
       handler: msgEventAlias,
       proxy: false,
+      endpointTypes: [apigateway.EndpointType.EDGE]
     });
 
     const eventMessages = msgEventApi.root.addResource('messages');

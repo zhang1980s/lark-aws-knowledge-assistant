@@ -112,7 +112,15 @@ def bedrock_translate(content):
 def send_message_to_feishu(message_id, content):
     """Send a message back to Feishu."""
     try:
-        token_url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+        bot_endpoint = os.environ.get('BOT_ENDPOINT', 'feishu').lower()
+
+        if bot_endpoint == 'lark':
+            token_url = "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal"
+            reply_url = f"https://open.larksuite.com/open-apis/im/v1/messages/{message_id}/reply"
+        else:
+            token_url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
+            reply_url = f"https://open.feishu.cn/open-apis/im/v1/messages/{message_id}/reply"
+
         app_id, app_secret = get_app_credentials()
 
         payload = {
@@ -125,7 +133,7 @@ def send_message_to_feishu(message_id, content):
         response.raise_for_status()
         tenant_access_token = response.json().get('tenant_access_token')
 
-        reply_url = f"https://open.feishu.cn/open-apis/im/v1/messages/{message_id}/reply"
+
         headers = {
             'Content-type': 'application/json; charset=utf-8',
             'Authorization': f'Bearer {tenant_access_token}'
@@ -141,7 +149,7 @@ def send_message_to_feishu(message_id, content):
         response.raise_for_status()
         return response.text
     except requests.RequestException as e:
-        logger.error(f"Error sending message to Feishu: {e}")
+        logger.error(f"Error sending message to Feishu/Lark: {e}")
         raise
 
 def request_amazon_q(text):

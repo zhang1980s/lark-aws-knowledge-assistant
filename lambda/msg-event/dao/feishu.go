@@ -9,6 +9,7 @@ import (
 	"msg-event/config"
 	"msg-event/model"
 	"net/http"
+	"os"
 
 	lark "github.com/larksuite/oapi-sdk-go/v3"
 	larkcore "github.com/larksuite/oapi-sdk-go/v3/core"
@@ -18,11 +19,28 @@ import (
 	"golang.org/x/net/context"
 )
 
-const (
-	downloadUrl      = "https://open.feishu.cn/open-apis/im/v1/messages/%s/resources/%s?type=%s"
-	tokenUrl         = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
-	createChatTabUrl = "https://open.feishu.cn/open-apis/im/v1/chats/%s/chat_tabs"
+var (
+	downloadUrl      string
+	tokenUrl         string
+	createChatTabUrl string
 )
+
+func init() {
+	botEndpoint := os.Getenv("BOT_ENDPOINT")
+
+	switch botEndpoint {
+	case "lark":
+		downloadUrl = "https://open.larksuite.com/open-apis/im/v1/messages/%s/resources/%s?type=%s"
+		tokenUrl = "https://open.larksuite.com/open-apis/auth/v3/tenant_access_token/internal/"
+		createChatTabUrl = "https://open.larksuite.com/open-apis/im/v1/chats/%s/chat_tabs"
+	case "feishu":
+		fallthrough
+	default:
+		downloadUrl = "https://open.feishu.cn/open-apis/im/v1/messages/%s/resources/%s?type=%s"
+		tokenUrl = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal/"
+		createChatTabUrl = "https://open.feishu.cn/open-apis/im/v1/chats/%s/chat_tabs"
+	}
+}
 
 func CreateChannel(userIDs []string, name string) (channelID string, err error) {
 	client := getClient()
@@ -71,7 +89,28 @@ func getClient() *lark.Client {
 	if err != nil {
 		panic(err)
 	}
-	return lark.NewClient(id, sec)
+
+	botEndpoint := os.Getenv("BOT_ENDPOINT")
+
+	var baseURL string
+
+	// feishu Endpoint https://github.com/larksuite/oapi-sdk-go
+	var feishuBaseUrl = "https://open.feishu.cn"
+
+	// Lark Endpoint
+	var larkBaseUrl = "https://open.larksuite.com"
+
+	switch botEndpoint {
+	case "lark":
+		baseURL = larkBaseUrl
+	case "feishu":
+		baseURL = feishuBaseUrl
+	default:
+		logrus.Warnf("Invalid bot endpoint %s, use default feishu endpoint", botEndpoint)
+		baseURL = feishuBaseUrl
+	}
+
+	return lark.NewClient(id, sec, lark.WithOpenBaseUrl(baseURL))
 }
 
 func sendFeiShuMsg(client *lark.Client, t, chatId, msg string) (resp *larkim.CreateMessageResp, err error) {
@@ -237,12 +276,8 @@ func CreateChatTab(chatID string, url string) (err error) {
 		return err
 	}
 
-	/// Debug: print jsonStr
-	///	logrus.Infof(string(jsonStr))
-
-	createChatTabUrl := fmt.Sprintf(createChatTabUrl, chatID)
-	/// logrus.Infof("create chat tab url %s", createChatTabUrl)
-	req, err := http.NewRequest("POST", createChatTabUrl, bytes.NewBuffer(jsonStr))
+	createChatTabUrlFormatted := fmt.Sprintf(createChatTabUrl, chatID)
+	req, err := http.NewRequest("POST", createChatTabUrlFormatted, bytes.NewBuffer(jsonStr))
 	if err != nil {
 		return err
 	}
