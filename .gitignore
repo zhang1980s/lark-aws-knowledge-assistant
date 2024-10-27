@@ -3,6 +3,11 @@
 *.d.ts
 node_modules
 
+#lambda binary
+
+lambda/msg-event/bootstrap
+lambda/msg-event/Makefile
+
 # CDK asset staging directory
 .cdk.staging
 cdk.out

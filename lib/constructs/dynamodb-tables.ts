@@ -36,6 +36,17 @@ export class DynamoDBTables {
           projectionType: dynamodb.ProjectionType.ALL,
         }
       );
+
+    this.botCasesTable.addGlobalSecondaryIndex(
+      {
+        indexName: 'card_msg_id-index',
+        partitionKey: {
+          name: 'card_msg_id',
+          type: dynamodb.AttributeType.STRING,
+        },
+        projectionType: dynamodb.ProjectionType.ALL,
+      }
+    )
     
     this.botConfigTable = new dynamodb.Table(scope, 'bot_config', {
         partitionKey: {name: 'key', type: dynamodb.AttributeType.STRING },

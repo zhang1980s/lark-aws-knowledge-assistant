@@ -6,7 +6,7 @@ import { DynamoDBTables } from './constructs/dynamodb-tables';
 import { SQSQueues } from './constructs/sqs-queues';
 import { LambdaFunctions } from './constructs/lambda-functions';
 import { ApiGateway } from './constructs/apigateway';
-import { EventBridgeRules } from './constructs/eventbridge';
+import { EventBridgeBusAndRules } from './constructs/eventbridge';
 
 export class LarkAwsKnowledgeAssistantStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -18,6 +18,19 @@ export class LarkAwsKnowledgeAssistantStack extends cdk.Stack {
     const sqsQueues = new SQSQueues(this);
     const lambdaFunctions = new LambdaFunctions(this, dynamoDBTables, sqsQueues, secrets, parameters);
     new ApiGateway(this, lambdaFunctions.msgEventAlias);
-    new EventBridgeRules(this, lambdaFunctions.msgEventAlias, parameters.refreshInterval);
+    const eventBridgeBusAndRules = new EventBridgeBusAndRules(this, lambdaFunctions.msgEventAlias, parameters.refreshInterval);
+
+    // Output the arn of the msgEventRole
+    new cdk.CfnOutput(this,'msgEventRoleArn', {
+      value: lambdaFunctions.msgEventAlias.role!.roleArn,
+      description: 'The arn of msgEventfunction',      
+    })
+
+    // Output the arn of the larkbotCaseEventBus
+    new cdk.CfnOutput(this,'larkbotCaseEventBusArn',{
+      value: eventBridgeBusAndRules.larkbotCaseEventBus.eventBusArn,
+      description: 'The arn of larkbotCaseEventBus',
+    })
+
   }
 }

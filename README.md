@@ -1,6 +1,6 @@
 # 飞书AWS工单机器人 - 企业飞书即时通信工具AWS工单系统接入方案 
 ---
-飞书AWS工单机器人是一套基于飞书企业通信工具的方便用户和AWS售后工程师快捷文字沟通的工具。飞书用户可以通过简单的机器人关键字和飞书小卡片互动，向售后工程师团队提交支持案例，更新案例内容，以及准实时接收来自后台工程师的更新。
+飞书AWS工单机器人是一套基于飞书企业通信工具的方便用户和AWS售后工程师快捷文字沟通的工具。飞书用户可以通过简单的机器人关键字和飞书小卡片互动，向售后工程师团队提交支持案例，更新案例内容，以及实时接收来自后台工程师的更新。
 
 ## 目录
 ---
@@ -39,6 +39,8 @@
 [设置机器人支持的工单严重级别](#设置机器人支持的工单严重级别)
 
 [设置卡片提示信息，机器人回复信息等(可选配置)](#设置卡片提示信息，机器人回复信息等(可选配置))
+
+[开启工单更新推送功能](#开启工单更新推送功能)
 
 [开启周期性轮询工单推送功能](#开启周期性轮询工单推送功能)
 
@@ -125,9 +127,9 @@
 
 ###### AWS后台工程师更新同步
 
-机器人人会通过轮询的方式获取工单的远端更新信息，并且同步到工单群中。
+当后台工程师更新case内容时，机器人会通过eventbridge信息实时更新相关更新到对应的工单群中。
 
-轮询周期设置方式请参考[开启周期性轮询工单推送功能](#开启周期性轮询工单推送功能)。
+开启工单更新推送功能请参考[开启工单更新推送功能](#开启工单更新推送功能)。
 
 #### 切换AWS支持系统的电话或者聊天室功能
 
@@ -265,8 +267,9 @@ larkbot: creating CloudFormation changeset...
 ✨  Deployment time: 133.44s
 
 Outputs:
-LarkbotAppStack.msgEventRoleArn = arn:aws:iam::123456789012:role/larkbot-larkbotmsgeventServiceRoleC3080B6B-V1ESZLK7ODYY
-LarkbotAppStack.msgEventapiEndpointAC31EC6D = https://t68l424zt0.execute-api.ap-northeast-1.amazonaws.com/prod/
+LarkAwsKnowledgeAssistantStack.larkbotCaseEventBusArn = arn:aws:events:ap-northeast-1:123456789012:event-bus/LarkAwsKnowledgeAssistantStacklarkbotcaseeventbus2992C460
+LarkAwsKnowledgeAssistantStack.msgEventRoleArn = arn:aws:iam::123456789012:role/larkbot-larkbotmsgeventServiceRoleC3080B6B-V1ESZLK7ODYY
+LarkAwsKnowledgeAssistantStack.msgEventapiEndpointAC31EC6D = https://t68l424zt0.execute-api.ap-northeast-1.amazonaws.com/prod/
 Stack ARN:
 arn:aws:cloudformation:ap-northeast-1:123456789012:stack/larkbot/b35ccb10-6c3a-11ee-bef1-02e3082fe481
 
@@ -742,7 +745,81 @@ CDK默认设置lambda支持assume到任何账号中角色名称以FeishuSupportC
 
 [回到目录](#目录)
 
+#### 开启工单更新推送功能
+
+登陆相关账号：切换到美东一地区(us-east-1, N.virginia),进入eventbridge服务[管理界面](https://us-east-1.console.aws.amazon.com/events/home?region=us-east-1#/)。
+
+在屏幕左侧的导航中，选择Rules。
+
+
+在Rule管理界面,选择右上角的“Create Rule”按钮创建一个新的rule。rule的名称随意。
+
+![创建role](./picture/create-rule-1.png)
+
+点击下一步。
+
+在Build event pattern页面中，保持其他选项为默认值，在event pattern界面中，选择编辑"Edit pattern"，然后输入下面json：
+
+```
+{
+  "source": ["aws.support"]
+}
+```
+
+![输入event pattern](./picture/create-rule-2.png)
+
+点击下一步。
+
+在Select target(s)页面中，保持target types的默认选项。
+
+在target types的选项中，选择“event bus in a different account or Region”
+
+在Event bus as target输入框中，输入CDK部署结束后输出的eventbus的arn
+
+```
+
+ ✅  LarkbotAppStack (larkbot)
+
+✨  Deployment time: 133.44s
+
+Outputs:
+LarkAwsKnowledgeAssistantStack.larkbotCaseEventBusArn = arn:aws:events:ap-northeast-1:123456789012:event-bus/LarkAwsKnowledgeAssistantStacklarkbotcaseeventbus2992C460
+```
+
+在Execution role的选项中，选择“Create a new role for this specific resource”, 保持role name默认名，或者创建一个新的role的名字。
+
+
+系统自动创建的policy内容如下：
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "ActionsForResource",
+            "Effect": "Allow",
+            "Action": [
+                "events:PutEvents"
+            ],
+            "Resource": [
+                "arn:aws:events:ap-northeast-1:123456789012:event-bus/LarkAwsKnowledgeAssistantStacklarkbotcaseeventbus2992C460"
+            ]
+        }
+    ]
+}
+```
+
+![选择target](./picture/create-rule-3.png)
+
+然后点击下一步完成rule创建设置。
+
+
+
+[回到目录](#目录)
+
 #### 开启周期性轮询工单推送功能
+
+**此功能已经被eventbridge推送替代，默认可以不开启轮询。部署完毕后，轮询功能会默认处于关闭状态，下面步骤可以忽略**
 
 访问Amazon EventBridge服务主页，在页面左侧，在Buses段落中找到找到Rules编辑页面。找到机器人对应的Rule，开启该Rule。
 
@@ -761,6 +838,8 @@ RefreshInterval=20
 上面命令把轮询周期设置为20分钟一次。
 
 （TODO：通过CDK更新开启/关闭Rule功能）
+
+[回到目录](#目录)
 
 #### AWS中国区工单系统支持
 

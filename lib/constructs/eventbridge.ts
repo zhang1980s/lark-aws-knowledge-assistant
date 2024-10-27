@@ -4,17 +4,21 @@ import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 
-export class EventBridgeRules {
+export class EventBridgeBusAndRules {
+  public larkbotCaseEventBus: events.EventBus;
+
   constructor(scope: Construct, msgEventAlias: lambda.Alias, refreshInterval: cdk.CfnParameter) {
     // Create a new EventBus
-    const larkbotCaseEventBus = new events.EventBus(scope, 'larkbot-case-event-bus', {
+    this.larkbotCaseEventBus = new events.EventBus(scope, 'larkbot-case-event-bus', {
     });
 
     // Create a new rule for the EventBus
     const larkbotCaseEventRule = new events.Rule(scope, 'larkbot-case-event-rule', {
-      eventBus: larkbotCaseEventBus,
+      eventBus: this.larkbotCaseEventBus,
       eventPattern: {
-        source: ['custom.source']
+        source: [
+          'aws.support'
+        ]
 },
       description: 'Rule to trigger Lambda on case event',
     });
@@ -32,33 +36,16 @@ export class EventBridgeRules {
     }));
 
     // Create a resource-based policy for the EventBus
-    // const eventBusPolicy = new events.CfnEventBusPolicy(scope, 'EventBusPolicy', {
-    //   eventBusName: larkbotCaseEventBus.eventBusName,
-    //   statementId: 'AllowExternalAccounts',
-    //   action: 'events:PutEvents',
-    //   principal: '*',
-    //   statement: JSON.stringify({
-    //     Version: "2012-10-17",
-    //     Statement: [
-    //       {
-    //         Effect: "Allow",
-    //         Principal: "*",
-    //         Action: "events:PutEvents",
-    //         Resource: larkbotCaseEventBus.eventBusArn,
-    //         Condition: {
-    //           ArnEquals: {
-    //             "aws:SourceArn": [
-    //               `arn:aws:events:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:event-bus/${larkbotCaseEventBus.eventBusName}`
-    //             ]
-    //           },
-    //           StringEqualsIfExists: {
-    //             "aws:PrincipalAccount": ["123", "456"]
-    //           }
-    //         }
-    //       }
-    //     ]
-    //   })
-    // });
+    const eventBusPolicy = new events.CfnEventBusPolicy(scope, 'EventBusPolicy', {
+      eventBusName: this.larkbotCaseEventBus.eventBusName,
+      statementId: 'AllowAccountsToPutEvents',
+      statement: {
+        Effect: "Allow",
+        Principal: "*",
+        Action: "events:PutEvents",
+        Resource: this.larkbotCaseEventBus.eventBusArn
+      }
+    });
 
     // Existing refresh case rule
     const refreshEventRule = new events.Rule(scope, 'refreshCaseRule', {
