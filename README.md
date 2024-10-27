@@ -747,7 +747,7 @@ CDK默认设置lambda支持assume到任何账号中角色名称以FeishuSupportC
 
 #### 开启工单更新推送功能
 
-登陆相关账号：切换到美东一地区(us-east-1, N.virginia),进入eventbridge服务[管理界面](https://us-east-1.console.aws.amazon.com/events/home?region=us-east-1#/)。
+登陆相关需要机器人创建工单的账号。登录后切换到美东一地区(us-east-1, N.virginia),进入eventbridge服务[管理界面](https://us-east-1.console.aws.amazon.com/events/home?region=us-east-1#/)。
 
 在屏幕左侧的导航中，选择Rules。
 
