@@ -170,7 +170,7 @@
 飞书机器人服务端可以选择在一个AWS账号中部署，通过assume role的方式调用其他账号（包括本账号）的role进行support API操作。部署账号本身没有特殊要求。由于飞书服务器端在国内，并且发送请求时对回调地址（机器人服务器端）的请求有响应时间的要求，因此应该尽量选择距离国内较近的region。实测发现飞书服务器端到AWS日本和新加坡Region的延迟相对较低，建议在这两个region中选择一个部署。
 
 
-0. 安装CDK工具
+0. 安装CDK工具和[Docker工具](https://docs.docker.com/engine/)
 
 使用下面命令安装cdk工具。
 
@@ -180,11 +180,13 @@ npm install -g aws-cdk
 参考下面官方文档安装cdk工具
 https://docs.aws.amazon.com/cdk/v2/guide/getting_started.html
 
+根据部署环境，遵循[官方文档](https://docs.docker.com/engine/)部署Docker工具
 
-1. 从官方仓库下载源代码及lambda二进制文件（适用于没有go开发环境的部署环境）
+
+1. 从官方仓库下载源代码
 
 ```
-git clone https://github.com/zhang1980s/larkbot.git
+git clone https://github.com/zhang1980s/lark-aws-knowledge-assistant.git
 ```
 
 
@@ -223,16 +225,16 @@ https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html
 
 3. 通过CDK部署飞书机器人后端环境
 
-进入larkbot仓库的主目录，执行cdk-deploy-to.sh 脚本在指定账号的指定Region中部署飞书机器人后端环境。cdk命令会通过cloudformation的方式创建相关资源及对应的最小权限关系。
+进入lark-aws-knowledge-assistant仓库的主目录，执行cdk-deploy-to.sh 脚本在指定账号的指定Region中部署飞书机器人后端环境。cdk命令会通过cloudformation的方式创建相关资源及对应的最小权限关系。
 
 
 ```
-$ cd larkbot
+$ cd lark-aws-knowledge-assistant.git
 $ npm i --save-dev @types/node
 $ ./cdk-deploy-to.sh <accountID> <region> --context stackName=<stackname> --profile <profile>
 ```
 
-上面命令通过输入 --context stackName 参数自定义stackName，如果未输入此参数，飞书机器人会使用默认的"LarkbotAppStack"作为cloudformation的stack名称。
+上面命令通过输入 --context stackName 参数自定义stackName，如果未输入此参数，飞书机器人会使用默认的"LarkAwsKnowledgeAssistantStack"作为cloudformation的stack名称。
 
 例如，下面命令在123456789012账号的ap-northeast-1地区，使用global profile创建飞书机器人后端。
 
@@ -256,13 +258,13 @@ Please confirm you intend to make the following modifications:
 (NOTE: There may be security-related changes not in this list. See https://github.com/aws/aws-cdk/issues/1299)
 
 Do you wish to deploy these changes (y/n)? y
-LarkbotAppStack (larkbot): deploying... [1/1]
+LarkAwsKnowledgeAssistantStack (larkbot): deploying... [1/1]
 larkbot: creating CloudFormation changeset...
 
 
 ...
 
- ✅  LarkbotAppStack (larkbot)
+ ✅  LarkAwsKnowledgeAssistantStack (larkbot)
 
 ✨  Deployment time: 133.44s
 
@@ -285,8 +287,8 @@ https://docs.aws.amazon.com/cdk/v2/guide/environments.html
 
 ```
 Outputs:
-LarkbotAppStack.msgEventRoleArn = arn:aws:iam::123456789012:role/larkbot-larkbotmsgeventServiceRoleC3080B6B-V1ESZLK7ODYY
-LarkbotAppStack.msgEventapiEndpointAC31EC6D = https://t68l424zt0.execute-api.ap-northeast-1.amazonaws.com/prod/
+LarkAwsKnowledgeAssistantStackAppStack.msgEventRoleArn = arn:aws:iam::123456789012:role/larkbot-larkbotmsgeventServiceRoleC3080B6B-V1ESZLK7ODYY
+LarkAwsKnowledgeAssistantStackAppStack.msgEventapiEndpointAC31EC6D = https://t68l424zt0.execute-api.ap-northeast-1.amazonaws.com/prod/
 ```
 
 4. 删除飞书机器人后端（如果必要）
@@ -778,7 +780,7 @@ CDK默认设置lambda支持assume到任何账号中角色名称以FeishuSupportC
 
 ```
 
- ✅  LarkbotAppStack (larkbot)
+ ✅  LarkAwsKnowledgeAssistantAppStack (larkbot)
 
 ✨  Deployment time: 133.44s
 
