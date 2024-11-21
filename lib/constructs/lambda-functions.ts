@@ -17,7 +17,7 @@ export class LambdaFunctions {
     dynamoDBTables: { auditTable: dynamodb.Table; botCasesTable: dynamodb.Table; botConfigTable: dynamodb.Table },
     sqsQueues: { qContentQ: sqs.Queue },
     secrets: { AppIDSecret: secretsmanager.Secret; AppSecretSecret: secretsmanager.Secret },
-    params: { configKey: cdk.CfnParameter; caseLanguage: cdk.CfnParameter; userWhitelist: cdk.CfnParameter; supportRegion: cdk.CfnParameter; botEndpoint: cdk.CfnParameter }
+    params: { configKey: cdk.CfnParameter; caseLanguage: cdk.CfnParameter; logLevel: cdk.CfnParameter; userWhitelist: cdk.CfnParameter; supportRegion: cdk.CfnParameter; botEndpoint: cdk.CfnParameter }
   ) {
     // Define msgEvent handler
     const msgEventFunction = new lambda.Function(scope, 'larkbot-msg-event', {
@@ -46,6 +46,7 @@ export class LambdaFunctions {
         CFG_TABLE: dynamoDBTables.botConfigTable.tableName,
         CFG_KEY: params.configKey.valueAsString,
         CASE_LANGUAGE: params.caseLanguage.valueAsString,
+        LOG_LEVEL: params.logLevel.valueAsString,
         ENABLE_USER_WHITELIST: params.userWhitelist.valueAsString,
         SUPPORT_REGION: params.supportRegion.valueAsString,
         SQS_URL: sqsQueues.qContentQ.queueUrl,

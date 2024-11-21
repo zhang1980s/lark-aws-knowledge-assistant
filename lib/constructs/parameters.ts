@@ -8,6 +8,7 @@ export class CfnParameters {
   public readonly configKey: cdk.CfnParameter;
   public readonly userWhitelist: cdk.CfnParameter;
   public readonly supportRegion: cdk.CfnParameter;
+  public readonly logLevel: cdk.CfnParameter;
   public readonly refreshInterval: cdk.CfnParameter;
   public readonly botEndpoint: cdk.CfnParameter;
 
@@ -55,6 +56,14 @@ export class CfnParameters {
       noEcho: false,
       allowedValues: ['en', 'cn'],
       default: 'en'
+    });
+
+    this.logLevel = new cdk.CfnParameter(scope, 'LogLevel', {
+      type: 'String',
+      description: 'The default log level',
+      noEcho: false,
+      allowedValues: ['DEBUG', 'INFO'],
+      default: 'DEBUG'
     });
 
     this.refreshInterval = new cdk.CfnParameter(scope, 'RefreshInterval', {

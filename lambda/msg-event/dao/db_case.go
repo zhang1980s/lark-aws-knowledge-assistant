@@ -21,6 +21,7 @@ import (
 )
 
 const (
+	STATUS_PRE_NEW      = "PRE_NEW"
 	STATUS_NEW      = "NEW"
 	STATUS_OPEN     = "OPEN"
 	STATUS_CLOSE    = "CLOSE"
@@ -54,7 +55,7 @@ func GetDBClient() *dynamodb.Client {
 }
 
 // OpenCase every time rewrite the one case from this channel
-func OpenCase(fromChannelID, customerID, title, msgID string, msg *model.FeiShuMsg) (c *Case, err error) {
+func OpenCaseWithStatus(fromChannelID, customerID, title, msgID string, msg *model.FeiShuMsg, status string) (c *Case, err error) {
 
 	// insert the data into dynamodb
 	ca, err := UpsertCase(&Case{
@@ -65,7 +66,7 @@ func OpenCase(fromChannelID, customerID, title, msgID string, msg *model.FeiShuM
 		CreateTime:    time.Now().String(),
 		UpdateTime:    time.Now().String(),
 		Title:         title,
-		Status:        STATUS_NEW,
+		Status:        status,
 		Type:          TYPE_OPEN_CASE,
 		CardRespMsgID: msgID,
 		CardMsg:       msg,
@@ -75,6 +76,13 @@ func OpenCase(fromChannelID, customerID, title, msgID string, msg *model.FeiShuM
 		return nil, err
 	}
 	return ca, nil
+}
+
+// OpenCase every time rewrite the one case from this channel
+func OpenCase(fromChannelID, customerID, title, msgID string, msg *model.FeiShuMsg) (c *Case, err error) {
+
+	// insert the data into dynamodb
+	return OpenCaseWithStatus(fromChannelID, customerID, title, msgID,msg,STATUS_NEW)
 }
 
 func UpsertCase(c *Case) (ca *Case, err error) {

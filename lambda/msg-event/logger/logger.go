@@ -18,7 +18,7 @@ type CoreField struct {
 func Init() {
 	// Configure logging level based on environment
 	level := zap.InfoLevel
-	if os.Getenv("LOG_LEVEL") == "debug" {
+	if os.Getenv("LOG_LEVEL") == "DEBUG" {
 		level = zap.DebugLevel
 	}
 

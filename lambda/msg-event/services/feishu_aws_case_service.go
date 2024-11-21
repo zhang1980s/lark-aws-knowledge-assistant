@@ -2,10 +2,13 @@ package services
 
 import (
 	"context"
+	// "encoding/json"
 	"errors"
 	"msg-event/config"
 	"msg-event/dao"
 	"msg-event/logger"
+
+	// "msg-event/model"
 	"msg-event/model/event"
 	"msg-event/model/response"
 	"msg-event/services/api"
@@ -44,6 +47,7 @@ func InitProcessors() {
 	processorManager = map[string]api.Processor{
 		"fresh_comment": processors.GetRefreshCommentProcessor(),
 		"card":          processors.GetCardProcessor(),
+		"trigger_card_v2":  processors.GetCardV2TriggerProcessor(),
 		"text":          processors.GetTextProcessor(),
 		"image":         processors.GetImageProcessor(),
 		"file":          processors.GetAttaProcessor(),
@@ -102,7 +106,13 @@ func Serve(_ context.Context, e *event.Msg) (event *response.MsgResponse, err er
 
 	if e.Action != nil && e.Event.Message.MsgType == "" {
 		e.Event.Message.MsgType = "card"
-		reqLog.Debug("Set message type to card for action event")
+		reqLog.Info("Set message type to card for action event")
+	}
+
+	// set as card of new version
+	if e.Header.EventType == "application.bot.menu_v6" && e.Event.EventKey == "create_case" {
+		e.Event.Message.MsgType = "trigger_card_v2"
+		reqLog.Info("Set message type to trigger_card_v2 for open case button event")
 	}
 
 	if e.Event.Message.MsgType != "" {
@@ -123,7 +133,7 @@ func Serve(_ context.Context, e *event.Msg) (event *response.MsgResponse, err er
 			return resp, err
 		}
 
-		reqLog.Debug("Processing message",
+		reqLog.Info("Processing message",
 			zap.String("processor", e.Event.Message.MsgType),
 		)
 

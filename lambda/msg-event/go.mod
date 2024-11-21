@@ -16,6 +16,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/support v1.26.2
 	github.com/larksuite/oapi-sdk-go/v3 v3.3.5
 	github.com/sirupsen/logrus v1.9.3
+	go.uber.org/zap v1.27.0
 	golang.org/x/image v0.21.0
 	golang.org/x/net v0.30.0
 )
@@ -33,5 +34,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.28.2 // indirect
 	github.com/aws/smithy-go v1.22.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
+	github.com/stretchr/testify v1.9.0 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/sys v0.26.0 // indirect
 )

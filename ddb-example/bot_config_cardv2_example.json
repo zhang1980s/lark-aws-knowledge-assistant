@@ -1,0 +1,846 @@
+{
+    "key": "LarkBotProfile-0",
+    "accounts": {
+        "0": {
+            "role_arn": "arn:aws:iam::<accountID>:role/FeishuSupportCaseApiAll"
+        },
+        "1": {
+            "role_arn": "arn:aws:iam::<AccountID>:role/FeishuSupportCaseApiAll"
+        }
+    },
+    "ack": "回复已经收到",
+    "app_id_arn": "arn:aws:secretsmanager:<region>:<accountID>:secret:AppIDSecretXXX",
+    "app_secret_arn": "arn:aws:secretsmanager:<region>:<accountID>:secret:AppSecretSecretXXX",
+    "case_card_template": {
+        "card": {
+            "config": {
+                "wide_screen_mode": true
+            },
+            "elements": [
+                {
+                    "Content": "**当前工单信息**\n --------------\n\n ",
+                    "Extra": {
+                        "InitialOption": "",
+                        "Options": null,
+                        "Placeholder": {
+                            "Content": "",
+                            "Tag": ""
+                        },
+                        "Tag": "",
+                        "Value": {
+                            "Key": "info"
+                        }
+                    },
+                    "Href": {
+                        "URLVal": {
+                            "AndroidURL": "",
+                            "IosURL": "",
+                            "PcURL": "",
+                            "URL": ""
+                        }
+                    },
+                    "Tag": "markdown",
+                    "Text": {
+                        "Content": "",
+                        "Tag": ""
+                    }
+                },
+                {
+                    "Content": "**题目：**",
+                    "Extra": {
+                        "InitialOption": "",
+                        "Options": null,
+                        "Placeholder": {
+                            "Content": "",
+                            "Tag": ""
+                        },
+                        "Tag": "",
+                        "Value": {
+                            "Key": "title"
+                        }
+                    },
+                    "Href": {
+                        "URLVal": {
+                            "AndroidURL": "",
+                            "IosURL": "",
+                            "PcURL": "",
+                            "URL": ""
+                        }
+                    },
+                    "Tag": "markdown",
+                    "Text": {
+                        "Content": "",
+                        "Tag": ""
+                    }
+                },
+                {
+                    "extra": {
+                        "options": [
+                            {
+                                "text": {
+                                    "content": "我的账号1",
+                                    "tag": "plain_text"
+                                },
+                                "value": "0"
+                            },
+                            {
+                                "text": {
+                                    "content": "我的账号2",
+                                    "tag": "plain_text"
+                                },
+                                "value": "1"
+                            }
+                        ],
+                        "placeholder": {
+                            "content": "账户",
+                            "tag": "plain_text"
+                        },
+                        "tag": "select_static",
+                        "value": {
+                            "key": "账户"
+                        }
+                    },
+                    "tag": "div",
+                    "text": {
+                        "content": "**账户**",
+                        "tag": "lark_md"
+                    }
+                },
+                {
+                    "extra": {
+                        "options": [
+                            {
+                                "text": {
+                                    "content": "general-info",
+                                    "tag": "plain_text"
+                                },
+                                "value": "0"
+                            },
+                            {
+                                "text": {
+                                    "content": "amazon-elastic-compute-cloud-linux",
+                                    "tag": "plain_text"
+                                },
+                                "value": "1"
+                            },
+                            {
+                                "text": {
+                                    "content": "amazon-simple-storage-service",
+                                    "tag": "plain_text"
+                                },
+                                "value": "2"
+                            },
+                            {
+                                "text": {
+                                    "content": "amazon-virtual-private-cloud",
+                                    "tag": "plain_text"
+                                },
+                                "value": "3"
+                            },
+                            {
+                                "text": {
+                                    "content": "ELB负载均衡器",
+                                    "tag": "plain_text"
+                                },
+                                "value": "4"
+                            }
+                        ],
+                        "placeholder": {
+                            "content": "请选择服务内容",
+                            "tag": "plain_text"
+                        },
+                        "tag": "select_static",
+                        "value": {
+                            "key": "服务"
+                        }
+                    },
+                    "tag": "div",
+                    "text": {
+                        "content": "**服务**",
+                        "tag": "lark_md"
+                    }
+                },
+                {
+                    "extra": {
+                        "options": [
+                            {
+                                "text": {
+                                    "content": "一般性指导",
+                                    "tag": "plain_text"
+                                },
+                                "value": "low"
+                            },
+                            {
+                                "text": {
+                                    "content": "系统受损",
+                                    "tag": "plain_text"
+                                },
+                                "value": "normal"
+                            },
+                            {
+                                "text": {
+                                    "content": "生产系统受损",
+                                    "tag": "plain_text"
+                                },
+                                "value": "high"
+                            },
+                            {
+                                "text": {
+                                    "content": "生产系统停机",
+                                    "tag": "plain_text"
+                                },
+                                "value": "urgent"
+                            },
+                            {
+                                "text": {
+                                    "content": "业务/任务关键型系统停机",
+                                    "tag": "plain_text"
+                                },
+                                "value": "critical"
+                            }
+                        ],
+                        "placeholder": {
+                            "content": "响应速度",
+                            "tag": "plain_text"
+                        },
+                        "tag": "select_static",
+                        "value": {
+                            "key": "响应速度"
+                        }
+                    },
+                    "tag": "div",
+                    "text": {
+                        "content": "**响应速度**",
+                        "tag": "lark_md"
+                    }
+                },
+                {
+                    "Content": "**内容：** ",
+                    "Extra": {
+                        "InitialOption": "",
+                        "Options": null,
+                        "Placeholder": {
+                            "Content": "",
+                            "Tag": ""
+                        },
+                        "Tag": "",
+                        "Value": {
+                            "Key": "content"
+                        }
+                    },
+                    "Href": {
+                        "URLVal": {
+                            "AndroidURL": "",
+                            "IosURL": "",
+                            "PcURL": "",
+                            "URL": ""
+                        }
+                    },
+                    "Tag": "markdown",
+                    "Text": {
+                        "Content": "",
+                        "Tag": ""
+                    }
+                },
+                {
+                    "content": "\n --------------\n**CASE 小助手**\n\n开AWS支持案例方法：\n1.在和机器人单独的聊天对话中，输入“开工单”关键字然后输入需要咨询的问题题目，问题题目和开工单关键字用空格隔开。\t\n\n2. 在弹出的飞书小卡片中选择问题提交问题的AWS账户，问题服务类型及问题严重级别。\t\n\n3.正确选择小卡片内容后，接下来输入关键字“内容”及具体问题描述。具体问题描述和“内容”关键字用空格隔开。描述信息建议包括：问题发生的时间及时区/涉及的资源ID及region/发生问题的现象/该问题对业务造成的影响/联系人及联系方式。\t\n\n4.案例更新：在机器人创建的新工单群里输入内容或添加附件提交工单更新。",
+                    "tag": "markdown"
+                }
+            ]
+        },
+        "cardv2": {
+            "config": {
+                "wide_screen_mode": true
+            },
+            "card_link": {
+                "url": "",
+                "pc_url": "",
+                "android_url": "",
+                "ios_url": ""
+            },
+            "i18n_elements": {
+                "zh_cn": [
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "所属账号"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "AWS账号"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS账号1"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS账号2"
+                                    },
+                                    "value": "2"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS账号3"
+                                    },
+                                    "value": "3"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS账号4"
+                                    },
+                                    "value": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "服务"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "服务"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "服务1"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "服务2"
+                                    },
+                                    "value": "2"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "服务3"
+                                    },
+                                    "value": "3"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "服务4"
+                                    },
+                                    "value": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "响应速度"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "响应速度"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "一般性指导"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "系统受损"
+                                    },
+                                    "value": "2"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "生产系统受损"
+                                    },
+                                    "value": "high"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "生产系统停机"
+                                    },
+                                    "value": "urgent"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "业务/任务关键型系统停机"
+                                    },
+                                    "value": "critical"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "语言"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "语言"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "中文"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "英文"
+                                    },
+                                    "value": "2"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "action",
+                        "actions": [
+                            {
+                                "tag": "input",
+                                "input_type": "multiline_text",
+                                "rows": 4,
+                                "auto_resize": true,
+                                "name": "input_question",
+                                "placeholder": {
+                                    "tag": "plain_text",
+                                    "content": "Submit your question"
+                                },
+                                "default_value": "输入你的问题",
+                                "width": "default",
+                                "label": {
+                                    "tag": "plain_text",
+                                    "content": "问题"
+                                },
+                                "label_position": "top",
+                                "fallback": {
+                                    "tag": "fallback_text",
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "仅支持在 V6.8 及以上版本使用"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "hr"
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "content": "**CASE 小助手**\n\n开AWS支持案例方法：\n\n1.在和机器人单独的聊天对话中，点击最下方的开工单按键。如果最下方是输入框，点击输入框最左面的功能按钮切换到按钮界面\t\n\n2. 在弹出的小卡片中选择问题提交问题的AWS账户，问题服务类型及问题严重级别，以及工程师回复语言。\t\n\n3.正确选择小卡片内容后，在内容输入框中输入问题描述。例如：“美东地区EC2工作不正常”\t\n\n4.案例更新：在机器人创建的新工单群里输入内容或添加附件提交工单更新。",
+                            "tag": "lark_md"
+                        }
+                    },
+                    {
+                        "tag": "action",
+                        "actions": [
+                            {
+                                "tag": "button",
+                                "text": {
+                                    "tag": "plain_text",
+                                    "content": "提交"
+                                },
+                                "url": "https://open.larksuite.com/document",
+                                "type": "primary"
+                            },
+                            {
+                                "tag": "button",
+                                "text": {
+                                    "tag": "plain_text",
+                                    "content": "取消"
+                                },
+                                "url": "https://open.larksuite.com/document",
+                                "type": "default"
+                            }
+                        ]
+                    }
+                ],
+                "en_us": [
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "Account"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "AWS Account"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Account1"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Account2"
+                                    },
+                                    "value": "2"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Account3"
+                                    },
+                                    "value": "3"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Account4"
+                                    },
+                                    "value": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "Service"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "Service"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS Service 1"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS Service 2"
+                                    },
+                                    "value": "2"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS Service 3"
+                                    },
+                                    "value": "3"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "AWS Service 4"
+                                    },
+                                    "value": "4"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "Severity"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "Severity"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "General guidance"
+                                    },
+                                    "value": "low"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "System imparied"
+                                    },
+                                    "value": "normal"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Production system impaired"
+                                    },
+                                    "value": "high"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Production system down"
+                                    },
+                                    "value": "urgent"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Critical production system down"
+                                    },
+                                    "value": "critical"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": "Language"
+                        },
+                        "extra": {
+                            "tag": "select_static",
+                            "placeholder": {
+                                "tag": "plain_text",
+                                "content": "Language"
+                            },
+                            "value": {
+                                "key": "value"
+                            },
+                            "options": [
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "Mandarin"
+                                    },
+                                    "value": "1"
+                                },
+                                {
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "English"
+                                    },
+                                    "value": "2"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "tag": "action",
+                        "actions": [
+                            {
+                                "tag": "input",
+                                "input_type": "multiline_text",
+                                "rows": 4,
+                                "auto_resize": true,
+                                "name": "input_question",
+                                "placeholder": {
+                                    "tag": "plain_text",
+                                    "content": "Submit your question"
+                                },
+                                "default_value": "Input your question here",
+                                "width": "default",
+                                "label": {
+                                    "tag": "plain_text",
+                                    "content": "Question"
+                                },
+                                "label_position": "top",
+                                "fallback": {
+                                    "tag": "fallback_text",
+                                    "text": {
+                                        "tag": "plain_text",
+                                        "content": "The input box is only supported on Lark clients version V6.8 and above. "
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "tag": "hr"
+                    },
+                    {
+                        "tag": "div",
+                        "text": {
+                            "content": "**AWS Support Case Assistant**\n\nHow to open an AWS support case：\n\n1.In a private chat with the bot, click the \"Open Case\" button at the bottom. If there is an input field at the bottom, click the leftmost button to switch to the button interface\t\n\n2. In the pop-up card, select the AWS account to submit the issue, the service type, the severity level, and the preferred language for the engineer's response.\t\n\n3.After correctly selecting the card content, enter the problem description in the content input field. For example: \"EC2 instances are not functioning properly in the US East region.\"\t\n\n4.Case updates: In the new case group created by the bot, enter content or add attachments to submit case updates.",
+                            "tag": "lark_md"
+                        }
+                    },
+                    {
+                        "tag": "action",
+                        "actions": [
+                            {
+                                "tag": "button",
+                                "text": {
+                                    "tag": "plain_text",
+                                    "content": "Submit"
+                                },
+                                "url": "https://open.larksuite.com/document",
+                                "type": "primary"
+                            },
+                            {
+                                "tag": "button",
+                                "text": {
+                                    "tag": "plain_text",
+                                    "content": "Cancel"
+                                },
+                                "url": "https://open.larksuite.com/document",
+                                "type": "default"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "header": {
+                "template": "blue",
+                "title": {
+                    "tag": "plain_text",
+                    "i18n": {
+                        "zh_cn": "提交问题",
+                        "en_us": "Submit your question"
+                    }
+                }
+            }
+        },
+        "msg_type": "interactive",
+        "update_multi": true
+    },
+    "no_permission_msg": "你没有权限开工单，请联系XXX获取帮助",
+    "service_map": {
+        "0": [
+            "general-info",
+            "using-aws"
+        ],
+        "1": [
+            "amazon-elastic-compute-cloud-linux",
+            "other"
+        ],
+        "2": [
+            "amazon-simple-storage-service",
+            "general-guidance"
+        ],
+        "3": [
+            "amazon-virtual-private-cloud",
+            "general-guidance"
+        ],
+        "4": [
+            "elastic-load-balancing",
+            "general-guidance"
+        ],
+        "5": [
+            "aws-identity-and-access-management",
+            "general-guidance"
+        ],
+        "6": [
+            "amazon-cloudwatch",
+            "general-guidance"
+        ],
+        "7": [
+            "aws-direct-connect",
+            "general-guidance"
+        ],
+        "8": [
+            "distributed-denial-of-service",
+            "inbound-to-aws"
+        ],
+        "9": [
+            "account-management",
+            "billing"
+        ],
+        "10": [
+            "amazon-cloudfront",
+            "general-guidance"
+        ],
+        "11": [
+            "amazon-relational-database-service-postgresql",
+            "general-guidance"
+        ],
+        "12": [
+            "amazon-relational-database-service-mysql",
+            "general-guidance"
+        ],
+        "13": [
+            "amazon-elastic-block-store",
+            "general-guidance"
+        ],
+        "14": [
+            "aws-lambda",
+            "general-guidance"
+        ]
+    },
+    "sev_map": {
+        "critical": "critical",
+        "high": "high",
+        "low": "low",
+        "normal": "normal",
+        "urgent": "urgent"
+    },
+    "user_whitelist": {
+        "b123456": "张同学",
+        "c654321": "李同学"
+    },
+    "role": {
+        "b123456": "管理员"
+    }
+}

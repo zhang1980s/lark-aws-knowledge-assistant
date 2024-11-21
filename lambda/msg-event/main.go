@@ -42,6 +42,34 @@ func (h *lambdaHandler) Invoke(ctx context.Context, payload []byte) ([]byte, err
 		return nil, err
 	}
 
+	// Log event details in human readable format
+	h.logger.Debug("Received Lambda event",
+		zap.Any("event_header", map[string]interface{}{
+			"event_id":    e.Header.EventID,
+			"event_type":  e.Header.EventType,
+			"create_time": e.Header.CreateTime,
+			"token":       e.Header.Token,
+			"app_id":      e.Header.AppID,
+			"tenant_key":  e.Header.TenantKey,
+			"event_key":   e.Event.EventKey,
+		}),
+		zap.Any("sender", map[string]interface{}{
+			"sender_id":   e.Event.Sender.SenderIDs,
+			"sender_type": e.Event.Sender.SenderType,
+			"tenant_key":  e.Event.Sender.TenantKey,
+		}),
+		zap.Any("message", map[string]interface{}{
+			"message_id":   e.Event.Message.MsgID,
+			"root_id":      e.Event.Message.RootID,
+			"parent_id":    e.Event.Message.ParentID,
+			"create_time":  e.Event.Message.CreateTime,
+			"chat_id":      e.Event.Message.ChatID,
+			"chat_type":    e.Event.Message.ChatType,
+			"message_type": e.Event.Message.MsgType,
+			"content":      e.Event.Message.Content,
+		}),
+	)
+
 	// Use message ID as request ID
 	requestID := e.Event.Message.MsgID
 

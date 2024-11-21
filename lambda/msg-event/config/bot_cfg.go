@@ -22,6 +22,7 @@ type Config struct {
 	AppSecretARN     string              `dynamodbav:"app_secret_arn"`
 	ErrCardTemplate  *model.FeiShuMsg    `dynamodbav:"err_card_template"`
 	CaseCardTemplate *model.FeiShuMsg    `dynamodbav:"case_card_template"`
+	CaseCardTemplateV2 *model.FeiShuMsg    `dynamodbav:"case_card_template_v2"`
 	Ack              string              `dynamodbav:"ack"`
 	NoPermissionMSG  string              `dynamodbav:"no_permission_msg"`
 	UserWhiteListMap map[string]string   `dynamodbav:"user_whitelist"`

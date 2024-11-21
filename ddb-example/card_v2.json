@@ -1,0 +1,515 @@
+{
+  "config": {
+    "wide_screen_mode": true
+  },
+  "card_link": {
+    "url": "",
+    "pc_url": "",
+    "android_url": "",
+    "ios_url": ""
+  },
+  "i18n_elements": {
+    "zh_cn": [
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "所属账号"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "AWS账号"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS账号1"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS账号2"
+              },
+              "value": "2"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS账号3"
+              },
+              "value": "3"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS账号4"
+              },
+              "value": "4"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "服务"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "服务"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "服务1"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "服务2"
+              },
+              "value": "2"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "服务3"
+              },
+              "value": "3"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "服务4"
+              },
+              "value": "4"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "响应速度"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "响应速度"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "一般性指导"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "系统受损"
+              },
+              "value": "2"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "生产系统受损"
+              },
+              "value": "high"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "生产系统停机"
+              },
+              "value": "urgent"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "业务/任务关键型系统停机"
+              },
+              "value": "critical"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "语言"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "语言"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "中文"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "英文"
+              },
+              "value": "2"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "action",
+        "actions": [
+          {
+            "tag": "input",
+            "input_type": "multiline_text",
+            "rows": 4,
+            "auto_resize": true,
+            "name": "input_question",
+            "placeholder": {
+              "tag": "plain_text",
+              "content": "Submit your question"
+            },
+            "default_value": "输入你的问题",
+            "width": "default",
+            "label": {
+              "tag": "plain_text",
+              "content": "问题"
+            },
+            "label_position": "top",
+            "fallback": {
+              "tag": "fallback_text",
+              "text": {
+                "tag": "plain_text",
+                "content": "仅支持在 V6.8 及以上版本使用"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "div",
+        "text": {
+          "content": "**CASE 小助手**\n\n开AWS支持案例方法：\n\n1.在和机器人单独的聊天对话中，点击最下方的开工单按键。如果最下方是输入框，点击输入框最左面的功能按钮切换到按钮界面\t\n\n2. 在弹出的小卡片中选择问题提交问题的AWS账户，问题服务类型及问题严重级别，以及工程师回复语言。\t\n\n3.正确选择小卡片内容后，在内容输入框中输入问题描述。例如：“美东地区EC2工作不正常”\t\n\n4.案例更新：在机器人创建的新工单群里输入内容或添加附件提交工单更新。",
+          "tag": "lark_md"
+        }
+      },
+      {
+        "tag": "action",
+        "actions": [
+          {
+            "tag": "button",
+            "text": {
+              "tag": "plain_text",
+              "content": "提交"
+            },
+            "url": "https://open.larksuite.com/document",
+            "type": "primary"
+          },
+          {
+            "tag": "button",
+            "text": {
+              "tag": "plain_text",
+              "content": "取消"
+            },
+            "url": "https://open.larksuite.com/document",
+            "type": "default"
+          }
+        ]
+      }
+    ],
+    "en_us": [
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "Account"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "AWS Account"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Account1"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Account2"
+              },
+              "value": "2"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Account3"
+              },
+              "value": "3"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Account4"
+              },
+              "value": "4"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "Service"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "Service"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS Service 1"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS Service 2"
+              },
+              "value": "2"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS Service 3"
+              },
+              "value": "3"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "AWS Service 4"
+              },
+              "value": "4"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "Severity"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "Severity"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "General guidance"
+              },
+              "value": "low"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "System imparied"
+              },
+              "value": "normal"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Production system impaired"
+              },
+              "value": "high"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Production system down"
+              },
+              "value": "urgent"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Critical production system down"
+              },
+              "value": "critical"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "lark_md",
+          "content": "Language"
+        },
+        "extra": {
+          "tag": "select_static",
+          "placeholder": {
+            "tag": "plain_text",
+            "content": "Language"
+          },
+          "value": {
+            "key": "value"
+          },
+          "options": [
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "Mandarin"
+              },
+              "value": "1"
+            },
+            {
+              "text": {
+                "tag": "plain_text",
+                "content": "English"
+              },
+              "value": "2"
+            }
+          ]
+        }
+      },
+      {
+        "tag": "action",
+        "actions": [
+          {
+            "tag": "input",
+            "input_type": "multiline_text",
+            "rows": 4,
+            "auto_resize": true,
+            "name": "input_question",
+            "placeholder": {
+              "tag": "plain_text",
+              "content": "Submit your question"
+            },
+            "default_value": "Input your question here",
+            "width": "default",
+            "label": {
+              "tag": "plain_text",
+              "content": "Question"
+            },
+            "label_position": "top",
+            "fallback": {
+              "tag": "fallback_text",
+              "text": {
+                "tag": "plain_text",
+                "content": "The input box is only supported on Lark clients version V6.8 and above. "
+              }
+            }
+          }
+        ]
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "div",
+        "text": {
+          "content": "**AWS Support Case Assistant**\n\nHow to open an AWS support case：\n\n1.In a private chat with the bot, click the \"Open Case\" button at the bottom. If there is an input field at the bottom, click the leftmost button to switch to the button interface\t\n\n2. In the pop-up card, select the AWS account to submit the issue, the service type, the severity level, and the preferred language for the engineer's response.\t\n\n3.After correctly selecting the card content, enter the problem description in the content input field. For example: \"EC2 instances are not functioning properly in the US East region.\"\t\n\n4.Case updates: In the new case group created by the bot, enter content or add attachments to submit case updates.",
+          "tag": "lark_md"
+        }
+      },
+      {
+        "tag": "action",
+        "actions": [
+          {
+            "tag": "button",
+            "text": {
+              "tag": "plain_text",
+              "content": "Submit"
+            },
+            "url": "https://open.larksuite.com/document",
+            "type": "primary"
+          },
+          {
+            "tag": "button",
+            "text": {
+              "tag": "plain_text",
+              "content": "Cancel"
+            },
+            "url": "https://open.larksuite.com/document",
+            "type": "default"
+          }
+        ]
+      }
+    ]
+  },
+  "header": {
+    "template": "blue",
+    "title": {
+      "tag": "plain_text",
+      "i18n": {
+        "zh_cn": "提交问题",
+        "en_us": "Submit your question"
+      }
+    }
+  }
+}

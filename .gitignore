@@ -17,3 +17,6 @@ package-lock.json
 
 #.gitignore
 .gitignore
+
+# LLM
+code-assist

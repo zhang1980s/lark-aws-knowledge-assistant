@@ -10,8 +10,9 @@ type Header struct {
 }
 
 type Event struct {
-	Sender  Sender  `json:"sender,omitempty"`
-	Message Message `json:"message,omitempty"`
+	Sender   Sender  `json:"sender,omitempty"`
+	Message  Message `json:"message,omitempty"`
+	EventKey string  `json:"event_key,omitempty"`
 }
 
 type Sender struct {
@@ -55,6 +56,7 @@ type Msg struct {
 	Schema    string `json:"schema,omitempty"`
 	Event     Event  `json:"event,omitempty"`
 	Challenge string `json:"challenge"`
+	Type      string `json:"type"`
 	Header    Header `json:"header,omitempty"`
 	//card
 	OpenID    string  `json:"open_id"`

@@ -9,7 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const openCaseTitleKey = "title"
+// const openCaseTitleKey = "title"
 
 type openCaseServ struct {
 }
